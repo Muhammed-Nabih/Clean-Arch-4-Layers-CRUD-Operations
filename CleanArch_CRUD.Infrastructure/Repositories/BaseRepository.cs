@@ -9,21 +9,26 @@ using System.Threading.Tasks;
 
 namespace CleanArch_CRUD.Infrastructure.Repositories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         private readonly AppDbContext _context;
+        private readonly List<T> _entities = new List<T>();
 
-        public CategoryRepository(AppDbContext context)
+        public BaseRepository(AppDbContext context)
         {
             _context = context;
         }
 
-        public async Task<Category> AddCategory(Category category)
+        public async Task<T> Add(T entity)
         {
-            _context.Categories.Add(category);
+            _context.Set<T>().Add(entity);
             await _context.SaveChangesAsync();
+            return entity;
+        }
 
-            return category;
+        public IEnumerable<T> GetAll()
+        {
+            return _entities;
         }
     }
 }

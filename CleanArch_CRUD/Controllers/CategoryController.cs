@@ -1,6 +1,7 @@
 ﻿using CleanArch_CRUD.Services.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CleanArch_CRUD.Domain.DTOs;
 
 namespace CleanArch_CRUD.Controllers
 {
@@ -16,17 +17,20 @@ namespace CleanArch_CRUD.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCategory([FromBody] CategoryRequestDto request)
+        public async Task<IActionResult> AddCategory([FromBody] CategoryDTO request)
         {
-            var newCategory = await _categoryService.AddCategory(request.Name, request.Description);
+            var newCategory = await _categoryService.Add(request.Name, request.Description);
             return Ok(newCategory);
         }
 
-        // DTO (Data Transfer Object) for API requests
-        public class CategoryRequestDto
+        [HttpGet]
+        public IActionResult GetAllCategories()
         {
-            public string Name { get; set; }
-            public string Description { get; set; }
+            var categories = _categoryService.GetAll();
+            return Ok(categories);
         }
+
+        // DTO (Data Transfer Object) for API requests
+
     }
 }

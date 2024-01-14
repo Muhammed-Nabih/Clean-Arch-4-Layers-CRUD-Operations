@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace CleanArch_CRUD.Domain.Interfaces
 {
-    public interface ICategoryRepository
+    public interface IUnitOfWork : IDisposable
     {
-        Task<Category> AddCategory(Category category);
+        IBaseRepository <Category> Categories { get; }
+        Task SaveChangesAsync();
     }
 }

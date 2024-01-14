@@ -1,4 +1,5 @@
-﻿using CleanArch_CRUD.Domain;
+﻿using CleanArch_CRUD.Domain.Interfaces;
+using CleanArch_CRUD.Domain.Models;
 using CleanArch_CRUD.Infrastructure.Context;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,13 @@ namespace CleanArch_CRUD.Infrastructure.Repositories
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
+        }
+
+        public IBaseRepository<Category> Categories {get; set;}
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
 
         public async Task SaveChangesAsync()

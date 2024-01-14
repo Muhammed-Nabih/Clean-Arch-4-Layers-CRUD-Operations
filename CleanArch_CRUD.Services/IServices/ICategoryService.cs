@@ -9,6 +9,7 @@ namespace CleanArch_CRUD.Services.IServices
 {
     public interface ICategoryService
     {
-        Task<Category> AddCategory(string name, string description);
+        Task<Category> Add(string name, string description);
+        IEnumerable<Category> GetAll();
     }
 }
