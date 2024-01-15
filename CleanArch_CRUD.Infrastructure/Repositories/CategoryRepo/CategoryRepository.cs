@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+
 
 namespace CleanArch_CRUD.Infrastructure.Repositories.CategoryRepo
 {
@@ -42,6 +44,17 @@ namespace CleanArch_CRUD.Infrastructure.Repositories.CategoryRepo
         public async Task<Category> GetByIdAsync(int id)
         {
             return await _context.Categories.FindAsync(id);
+        }
+
+
+        public async Task RemoveAsync(int id)
+        {
+            var category = await GetByIdAsync(id);
+            if (category != null)
+            {
+                _context.Categories.Remove(category);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task UpdateAsync(Category category)

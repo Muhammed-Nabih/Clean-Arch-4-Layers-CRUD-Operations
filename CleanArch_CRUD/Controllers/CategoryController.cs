@@ -60,6 +60,20 @@ namespace CleanArch_CRUD.Controllers
             }
         }
 
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveCategory(int id)
+        {
+            try
+            {
+                await _categoryService.RemoveCategoryAsync(id);
+                return Ok($"The {id} Removed Successfully");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
         // DTO (Data Transfer Object) for API requests
 
     }

@@ -12,5 +12,6 @@ namespace CleanArch_CRUD.Domain.Interfaces
         IEnumerable<T> GetAll();
         Task<T> GetByIdAsync(int id);
         Task UpdateAsync(T entity);
+        Task RemoveAsync(int id);
     }
 }

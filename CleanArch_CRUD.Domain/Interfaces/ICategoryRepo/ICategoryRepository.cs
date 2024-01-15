@@ -13,6 +13,7 @@ namespace CleanArch_CRUD.Domain.Interfaces.ICategoryRepo
         Task<Category> GetByIdAsync(int id);
         IEnumerable<Category> GetAll(Category category);
         Task UpdateAsync(Category category);
+        Task RemoveAsync(int id);
 
     }
 }
