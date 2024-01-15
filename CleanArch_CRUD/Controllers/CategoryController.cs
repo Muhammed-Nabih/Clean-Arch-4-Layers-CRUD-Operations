@@ -65,7 +65,7 @@ namespace CleanArch_CRUD.Controllers
         public async Task<IActionResult> RemoveCategory(int id)
         {
             try
-            {
+            { 
                 await _categoryService.RemoveCategoryAsync(id);
                 return Ok($"The {id} Removed Successfully");
             }
