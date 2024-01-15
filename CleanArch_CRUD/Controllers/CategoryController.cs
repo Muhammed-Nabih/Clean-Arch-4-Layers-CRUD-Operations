@@ -76,5 +76,26 @@ namespace CleanArch_CRUD.Controllers
         }
         // DTO (Data Transfer Object) for API requests
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCategory(int id)
+        {
+            try
+            {
+                var category = await _categoryService.GetCategoryByIdAsync(id);
+
+                if (category == null)
+                {
+                    return NotFound($"Category Id {id} Not Exist");
+                }
+
+                return Ok(category);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception and return an appropriate response
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
     }
 }

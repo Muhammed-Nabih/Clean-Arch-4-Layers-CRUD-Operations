@@ -43,6 +43,10 @@ namespace CleanArch_CRUD.Services.Services
 
         }
 
+        public async Task<Category> GetCategoryByIdAsync(int categoryId)
+        {
+            return await _categoryRepository.GetByIdAsync(categoryId);
+        }
 
         public async Task RemoveCategoryAsync(int categoryId)
         {
