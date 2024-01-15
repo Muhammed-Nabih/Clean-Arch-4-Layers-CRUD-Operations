@@ -2,6 +2,7 @@
 using CleanArch_CRUD.Domain.Interfaces.ICategoryRepo;
 using CleanArch_CRUD.Domain.Models;
 using CleanArch_CRUD.Infrastructure.Context;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,11 @@ namespace CleanArch_CRUD.Infrastructure.Repositories.CategoryRepo
         public async Task RemoveAsync(int id)
         {
             var category = await GetByIdAsync(id);
-            if (category != null)
+            if (category == null)
+            {
+                throw new DirectoryNotFoundException();
+            }
+            else if (category != null)
             {
                 _context.Categories.Remove(category);
                 await _context.SaveChangesAsync();
@@ -60,8 +65,16 @@ namespace CleanArch_CRUD.Infrastructure.Repositories.CategoryRepo
 
         public async Task UpdateAsync(Category category)
         {
-            _context.Categories.Update(category);
-            await _context.SaveChangesAsync();
+            if (category == null)
+            {
+                throw new DirectoryNotFoundException();
+            }
+            else
+            {
+                _context.Categories.Update(category);
+                 await _context.SaveChangesAsync();
+            }
+            
 
         }
 

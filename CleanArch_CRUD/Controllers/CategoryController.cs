@@ -56,7 +56,7 @@ namespace CleanArch_CRUD.Controllers
             catch (Exception ex)
             {
                 
-                return StatusCode(500, "Internal Server Error");
+                return StatusCode(500, "Not Found");
             }
         }
 
@@ -67,17 +67,17 @@ namespace CleanArch_CRUD.Controllers
             try
             { 
                 await _categoryService.RemoveCategoryAsync(id);
-                return Ok($"The {id} Removed Successfully");
+                return Ok($"The Category {id} Removed Successfully");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Internal Server Error");
+                return StatusCode(500, "Not Found");
             }
         }
         // DTO (Data Transfer Object) for API requests
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCategory(int id)
+        public async Task<IActionResult> GetCategoryById(int id)
         {
             try
             {

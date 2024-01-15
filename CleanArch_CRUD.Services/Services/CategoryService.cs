@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CleanArch_CRUD.Domain.Interfaces.ICategoryRepo;
 using CleanArch_CRUD.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CleanArch_CRUD.Services.Services
 {
@@ -64,6 +65,10 @@ namespace CleanArch_CRUD.Services.Services
 
                 await _categoryRepository.UpdateAsync(category);
 
+            }
+            else
+            {
+                throw new DirectoryNotFoundException();
             }
 
         }
