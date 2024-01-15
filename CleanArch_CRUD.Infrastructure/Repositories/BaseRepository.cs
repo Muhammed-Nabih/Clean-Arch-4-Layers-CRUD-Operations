@@ -1,6 +1,7 @@
 ﻿using CleanArch_CRUD.Domain.Interfaces;
 using CleanArch_CRUD.Domain.Models;
 using CleanArch_CRUD.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,17 @@ namespace CleanArch_CRUD.Infrastructure.Repositories
         public IEnumerable<T> GetAll()
         {
             return _entities;
+        }
+        public async Task<T> GetByIdAsync(int id)
+        {
+            return await _context.Set<T>().FindAsync(id);
+        }
+
+        public async Task UpdateAsync(T entity)
+        {
+            _context.Set<T>().Update(entity);
+            await _context.SaveChangesAsync();
+
         }
     }
 }

@@ -10,7 +10,9 @@ namespace CleanArch_CRUD.Domain.Interfaces.ICategoryRepo
     public interface ICategoryRepository : IBaseRepository<Category>
     {
         Task<Category> Add(Category category);
+        Task<Category> GetByIdAsync(int id);
         IEnumerable<Category> GetAll(Category category);
+        Task UpdateAsync(Category category);
 
     }
 }

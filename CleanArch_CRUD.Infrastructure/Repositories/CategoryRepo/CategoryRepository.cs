@@ -39,6 +39,20 @@ namespace CleanArch_CRUD.Infrastructure.Repositories.CategoryRepo
             return (IEnumerable<Category>)_context.Categories.ToList();
         }
 
+        public async Task<Category> GetByIdAsync(int id)
+        {
+            return await _context.Categories.FindAsync(id);
+        }
+
+        public async Task UpdateAsync(Category category)
+        {
+            _context.Categories.Update(category);
+            await _context.SaveChangesAsync();
+
+        }
+
+
+
 
         /*
 IEnumerable<Category> ICategoryRepository.GetAll(Category category)

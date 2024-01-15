@@ -19,15 +19,45 @@ namespace CleanArch_CRUD.Controllers
         [HttpPost]
         public async Task<IActionResult> AddCategory([FromBody] CategoryDTO request)
         {
-            var newCategory = await _categoryService.Add(request.Name, request.Description);
-            return Ok(newCategory);
+            try
+            {
+                var newCategory = await _categoryService.Add(request.Name, request.Description);
+                return Ok(newCategory);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpGet]
         public IActionResult GetAllCategories()
         {
-            var categories = _categoryService.GetAll();
-            return Ok(categories);
+            try
+            {
+                var categories = _categoryService.GetAll();
+                return Ok(categories);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
+
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryDTO categoryUpdateDTO)
+        {
+            try
+            {
+                await _categoryService.UpdateCategoryAsync(id, categoryUpdateDTO.Name, categoryUpdateDTO.Description);
+                return Ok("Updated Succesfully");
+            }
+            catch (Exception ex)
+            {
+                
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         // DTO (Data Transfer Object) for API requests

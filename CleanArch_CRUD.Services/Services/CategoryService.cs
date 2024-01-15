@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CleanArch_CRUD.Domain.Interfaces.ICategoryRepo;
 using CleanArch_CRUD.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanArch_CRUD.Services.Services
 {
@@ -39,6 +40,21 @@ namespace CleanArch_CRUD.Services.Services
         public IEnumerable<Category> GetAll()
         {
             return _categoryRepository.GetAll();
+
+        }
+
+        public async Task UpdateCategoryAsync(int categoryId, string name, string description)
+        {
+            var category = await _categoryRepository.GetByIdAsync(categoryId);
+
+            if (category != null)
+            {
+                category.Name = name;
+                category.Description = description;
+
+                await _categoryRepository.UpdateAsync(category);
+
+            }
 
         }
 

@@ -11,5 +11,6 @@ namespace CleanArch_CRUD.Services.IServices
     {
         Task<Category> Add(string name, string description);
         IEnumerable<Category> GetAll();
+        Task UpdateCategoryAsync(int categoryId, string name, string description);
     }
 }

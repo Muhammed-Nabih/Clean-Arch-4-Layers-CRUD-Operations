@@ -10,5 +10,7 @@ namespace CleanArch_CRUD.Domain.Interfaces
     {
         Task<T> Add(T entity);
         IEnumerable<T> GetAll();
+        Task<T> GetByIdAsync(int id);
+        Task UpdateAsync(T entity);
     }
 }
