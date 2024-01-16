@@ -11,7 +11,7 @@ namespace CleanArch_CRUD.Domain.Interfaces.ICategoryRepo
     {
         Task<Category> Add(Category category);
         Task<Category> GetByIdAsync(int id);
-        IEnumerable<Category> GetAll(Category category);
+        IEnumerable<Category> GetAll();
         Task UpdateAsync(Category category);
         Task RemoveAsync(int id);
 

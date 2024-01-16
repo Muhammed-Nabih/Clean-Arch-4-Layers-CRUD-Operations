@@ -29,17 +29,11 @@ namespace CleanArch_CRUD.Infrastructure.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            return _entities;
+            return _context.Set<T>().ToList();
         }
         public async Task<T> GetByIdAsync(int id)
         {
             return await _context.Set<T>().FindAsync(id);
-        }
-
-        public async Task RemoveAsync(T entity)
-        {
-            _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
         }
 
         public async Task RemoveAsync(int id)
@@ -50,12 +44,23 @@ namespace CleanArch_CRUD.Infrastructure.Repositories
                 _context.Set<T>().Remove(entity);
                 await _context.SaveChangesAsync();
             }
+            else
+            {
+                throw new DirectoryNotFoundException();
+            }
         }
 
         public async Task UpdateAsync(T entity)
         {
-            _context.Set<T>().Update(entity);
-            await _context.SaveChangesAsync();
+            if (entity != null)
+            {
+                _context.Set<T>().Update(entity);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new DirectoryNotFoundException();
+            }
 
         }
     }

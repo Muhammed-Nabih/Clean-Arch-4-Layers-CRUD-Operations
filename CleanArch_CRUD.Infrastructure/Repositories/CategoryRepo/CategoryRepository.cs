@@ -14,78 +14,14 @@ using System.Xml.Linq;
 
 namespace CleanArch_CRUD.Infrastructure.Repositories.CategoryRepo
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     {
-        private readonly AppDbContext _context;
-        private readonly List<Category> _categories = new List<Category>();
 
-        public CategoryRepository(AppDbContext context)
+
+        public CategoryRepository(AppDbContext context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task<Category> Add(Category category)
-        {
-            _context.Categories.Add(category);
-            await _context.SaveChangesAsync();
-
-            return category;
-        }
-
-        public IEnumerable<Category> GetAll(Category category)
-        {
-            return (IEnumerable<Category>)_context.Categories.ToList();
-        }
-
-        public IEnumerable<Category> GetAll()
-        {
-            return (IEnumerable<Category>)_context.Categories.ToList();
-        }
-
-        public async Task<Category> GetByIdAsync(int id)
-        {
-            return await _context.Categories.FindAsync(id);
-
-        }
-
-
-        public async Task RemoveAsync(int id)
-        {
-            var category = await GetByIdAsync(id);
-            if (category == null)
-            {
-                throw new DirectoryNotFoundException();
-            }
-            else if (category != null)
-            {
-                _context.Categories.Remove(category);
-                await _context.SaveChangesAsync();
-            }
-        }
-
-        public async Task UpdateAsync(Category category)
-        {
-            if (category == null)
-            {
-                throw new DirectoryNotFoundException();
-            }
-            else
-            {
-                _context.Categories.Update(category);
-                 await _context.SaveChangesAsync();
-            }
-            
-
-        }
-
-
-
-
-        /*
-IEnumerable<Category> ICategoryRepository.GetAll(Category category)
-{
-   return (IEnumerable<Category>)_context.Categories.ToListAsync();
-}
-*/
+        
     }
 }

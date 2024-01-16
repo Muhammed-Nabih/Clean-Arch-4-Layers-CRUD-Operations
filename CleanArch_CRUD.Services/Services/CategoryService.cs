@@ -41,8 +41,9 @@ namespace CleanArch_CRUD.Services.Services
         public IEnumerable<Category> GetAll()
         {
             return _categoryRepository.GetAll();
-
         }
+
+   
 
         public async Task<Category> GetCategoryByIdAsync(int categoryId)
         {
